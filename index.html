@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing Ball Game</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: url('original.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+        header {
+            background: #D3D3D3;
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        header p {
+            margin: 0.5rem 0 0;
+            font-size: 1.25rem;
+        }
+        .container {
+            padding: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: auto;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+        canvas {
+            border: 2px solid #333;
+            border-radius: 8px;
+            background-color: #fff;
+            max-width: 100%;
+            height: auto;
+            width: 800px; /* Adjust the width as needed */
+            height: 500px; /* Adjust the height as needed */
+        }
+        #team{
+          color:white;
+        }
+        #about{
+          color:white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Bouncing Ball Game</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#home" onclick="showPage('home')">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about" onclick="showPage('about')">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#team" onclick="showPage('team')">Team Members</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" id="home">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+    </div>
+
+    <div class="container hidden" id="about">
+        <h2>About the Game</h2>
+        <p>The Bouncing Ball Game is an exciting and interactive computer graphics project that vividly demonstrates the capabilities of OpenGL. Designed with dynamic physics-based motion and responsive controls, the game offers an engaging experience as players navigate a ball through various challenges. Players are greeted with vibrant colors and smooth animations, making each bounce visually captivating. The game begins with an interactive start screen and keeps players engaged with real-time score tracking, pushing them to achieve higher scores with every attempt.
+
+The Bouncing Ball Game not only showcases technical prowess but also emphasizes user interaction and entertainment. Players can experience the thrill of watching the ball bounce off walls, influenced by gravity and acceleration, and their actions directly affect the game's outcome. With intuitive controls and a straightforward objective, the game is easy to pick up but challenging to master.
+
+Whether you're a seasoned gamer or new to computer graphics, the Bouncing Ball Game provides a visually stimulating and enjoyable experience. Dive in, test your reflexes, and see how high you can score in this captivating game that blends technical expertise with pure entertainment.</p>
+    </div>
+
+    <div class="container hidden" id="team">
+        <h2>Team Members</h2>
+        <ul>
+            <li>Aman Kumar(1KT21CS006)</li>
+            <li>Adarsh Raj(1KT21CS004)</li>
+            <li>Anuradha Verma(1KT21CS007)</li>
+            <li>Bivek Sah(1KT21CS012)</li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>@Computer Graphics and Image Processing.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.container');
+            pages.forEach(page => page.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+        // JavaScript code for the bouncing ball game
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let x = canvas.width / 2;
+        let y = canvas.height - 30;
+        let dx = 2;
+        let dy = -2;
+        let ballRadius = 10;
+
+        function drawBall() {
+            ctx.beginPath();
+            ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+            ctx.fillStyle = "#0095DD";
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawBall();
+            if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+                dx = -dx;
+            }
+            if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
+                dy = -dy;
+            }
+            x += dx;
+            y += dy;
+        }
+
+        setInterval(draw, 10);
+
+        // Initialize to show the home page by default
+        showPage('home');
+    </script>
+</body>
+</html>
